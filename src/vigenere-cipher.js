@@ -37,8 +37,8 @@ class VigenereCipheringMachine {
       const number = item.charCodeAt(0);
       
       if (number >= 65 && number <= 90) {
-        const numCode = (key[i++ % key.length].charCodeAt(0) - 65) % 32;
-        const charCode = decrypt ? number + 65 - numCode : number - 65 + numCode;
+        const numberCode = (key[i++ % key.length].charCodeAt(0) - 65) % 32;
+        const charCode = decrypt ? number + 65 - numberCode : number - 65 + numberCode;
         item = String.fromCharCode(charCode % 26 + 65);
       }
       result.push(item);

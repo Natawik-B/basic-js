@@ -14,55 +14,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
-  // throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+  let newArray = [];
   if (!Array.isArray(arr)) {
     throw new Error("'arr' parameter must be an instance of the Array!");
   }
 
-  if (arr.length == 0) {
-    return [];
-  }
-
-  let array = [...arr];
-  let moves = ['--double-prev', '--discard-prev', '--discard-next', '--double-next']
-  for (i = 0; i < moves.length; i++) {
-    let item = array.indexOf(moves[i]);
-    if (item >= 0) {
-      switch(i) {
-        case 2:
-          array.splice(item, 2, '');
-        break;
-
-        case 1:
-          if (item == 0) {
-            array.splice(item, 1, '');
-          } else {
-            array.splice(item - 1, 2, '');
-          }
-        break;
-        
-        case 3:
-          if (item == (array.length - 1)) {
-            array.splice(item, 1, '');
-          } else {
-            array.splice(item, 1, array[item + 1]);
-          }
-        break;
-
-        case 0:
-          if (item == 0) {
-          array.splice(item, 1, '')
-          } else {
-            array.splice(item, 1, array[item - 1]);
-          }
-        break;
-        default: alert('error');
+  for(let i = 0; i < arr.length; i++) {
+    if (arr[i] == '--double-prev') {
+      if(arr[i - 1]) {
+        newArray.push(arr[i - 1]);
+      } else {
+        continue;
       }
+    } else if (arr[i] == '--double-next') {
+      if (arr[i+1]) {
+        newArray.push(arr[i + 1]);
+      } else {
+        continue;
+      }
+    } else if (arr[i] == '--discard-prev') {
+      if(arr[i] == '--discard-next') {
+        i++;
+      } else {
+        newArray.pop();
+      }
+    } else if (arr[i] == '--discard-next') {
+      i = i + 2;
+    } else {
+      newArray.push(arr[i]);
     }
-  }
-  let result = array.filter(e => (e != ''));
-  return result;
+  } return newArray;
 };
 
 module.exports = {
