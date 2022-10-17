@@ -17,38 +17,38 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function repeater(str, options) {
   let result = [];
-  let additionWithTabs = [];
-  let additionWithsep = '';
+  let addition = [];
+  let additionWith = '';
   for (let i = 0; i < options.additionRepeatTimes; i++) {
-    additionWithTabs.push(String(options.addition));
+    addition.push(String(options.addition));
   }
 
   if (options.additionSeparator) {
-    additionWithsep = additionWithTabs.join(options.additionSeparator)
+    additionWith = addition.join(options.additionSeparator);
   } else if (!options.additionSeparator) {
-    additionWithsep = additionWithTabs.join('|')
+    additionWith = addition.join('|');
   }
   
 
-  if (additionWithTabs.length != 0) {
+  if (addition.length != 0) {
     for (let i = 0; i < options.repeatTimes; i++) {
-      result.push(String(str) + additionWithsep);
+      result.push(String(str) + additionWith);
     }
   } else {
     if (!options.repeatTimes) {
       result.push(String(str) + String(options.addition));
     } else if (options.repeatTimes){
       for (let n = 0; n < options.repeatTimes; n++) {
-        if(!options.addition) {
-          result.push(String(str)) 
+        if (!options.addition) {
+          result.push(String(str)) ;
           } else { result.push(String(str) + String(options.addition));
-      }
+        }
       }
     }
-
   }
+
   if (options.separator) {
-    return result.join(options.separator)
+    return result.join(options.separator);
   } else {
     return result.join('+');
   }
